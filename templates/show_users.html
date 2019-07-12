@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% set title = 'User Administration' %}
+{% block container %}
+
+<style type="text/css">
+    .row > div{
+        margin-bottom: 10px;
+    }
+    .header{
+        min-height: auto;
+    }
+    .header{
+        background: #FFFFFF;
+    }
+    .sidebar{
+        background: #FFFFFF;
+    }
+    .content{
+        background: #FFFFFF;
+    }
+    .sidebar, .content{
+        min-height: 300px;
+    }
+</style>
+
+<script src="{{ url_for('static', filename='js/nb.min.js') }}"></script>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h2>Users</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="sidebar">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                    <tr>
+                        {% if session['logged_in_user'] == user.name %}
+                        <td><a href={{ user.uri }}><strong>{{ user.name }}</strong></a></td>
+                        {% else %}
+                        <td><strong>{{ user.name }}</strong></a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-10">
+            <div class="content">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Notebook URL</th>
+                        <th>Service Name</th>
+                        <th>Status</th>
+                        <th>Last Updated</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.description }}</td>
+                        {% if user.notebook_url != 'Unknown' and session['logged_in_user'] == user.name or session['logged_in_admin'] %}
+                        <td><a class="nblink" data-token="{{ user.password_hash }}" href={{ user.notebook_url }}>{{ user.notebook_url }}</a></td>
+                        {% else %}
+                        <td>{{ user.notebook_url }}</td>
+                        {% endif %}
+                        {% if user.container_name != 'Unknown' %}
+                        <td><a href={{ url_for('container', name=user.container_name) }}><tt>{{ user.container_name }}</tt></a></td>
+                        {% else %}
+                        <td><tt>{{ user.container_name }}</tt></td>
+                        {% endif %}
+                        {% if user.container_status == 'running' %}
+                        <td><span style="min-width:70px;display:inline-block;" class="badge badge-success text-uppercase">{{ user.container_status }}</span></td>
+                        {% elif user.container_status == 'exited' %}
+                        <td><span style="min-width:70px;display:inline-block;" class="badge badge-danger text-uppercase">{{ user.container_status }}</span></td>
+                        {% elif user.container_status == 'paused' %}
+                        <td><span style="min-width:70px;display:inline-block;" class="badge badge-warning text-uppercase">{{ user.container_status }}</span></td>
+                        {% else %}
+                        <td><span style="min-width:70px;display:inline-block;" class="badge badge-secondary text-uppercase">{{ user.container_status }}</span></td>
+                        {% endif %}
+                        <td><tt>{{ user.timestamp }}</tt></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

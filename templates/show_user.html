@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block container %}
+
+<script src="{{ url_for('static', filename='js/user.min.js') }}"></script>
+
+<script>
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+<div class="container my-3">
+    <div class="card border-info">
+        <div class="card-header">
+            {% if (session['logged_in'] or session['logged_in_admin']) %}
+            <h3>User Information
+                <span class="btn-group float-right">
+                    <span title="Edit User" data-toggle="tooltip">
+                        <button class="btn btn-outline-light btn-sm btn-edit-user"
+                                data-toggle="modal"
+                                data-title="Update User"
+                                data-target="#update-user-modal"
+                                data-uname="{{ user.name }}"
+                                data-cname="{{ user.container_name }}"
+                                data-curl="{{ user.notebook_url }}"
+                                data-desc="{{ user.description }}"
+                                data-url="{{ url_for('user', name=user.name) }}">
+                            <img src="{{ url_for('static', filename='img/edit.svg') }}" height="24" width="24" alt="">
+                        </button>
+                    </span>
+                    <span title="Edit Service" data-toggle="tooltip">
+                        <button class="btn btn-outline-light btn-sm btn-edit-container"
+                                data-toggle="modal"
+                                data-target="#update-container-modal"
+                                data-title="Update Container"
+                                data-uname="{{ user.name }}"
+                                data-curl="{{ user.notebook_url }}"
+                                data-cid="{{ user.container_id }}"
+                                data-cname="{{ user.container_name}}"
+                                data-url="{{ url_for('user', name=user.name) }}">
+                            <img src="{{ url_for('static', filename='img/equalizer.svg') }}" height="24" width="24" alt="">
+                        </button>
+                    </span>
+                </span>
+            </h3>
+            {% else %}
+            <h3>User Information</h3>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            {% for k, v in user.items()|sort if k != 'password_hash' %}
+
+            <p class="text-uppercase"><strong>{{ k }}</strong></p>
+            {% if k == 'notebook_url' and v != 'Unknown' or k == 'uri'  %}
+            <p><a href={{ v }}>{{ v }}</a></p>
+            {% elif k == 'container_name' and v != 'Unknown' %}
+            <p><a href={{ url_for('container', name=v) }}>{{ v }}</a></p>
+            {% else %}
+            <p>{{ v }}</p>
+            {% endif %}
+
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% include 'update_user_modal.html' %}
+{% include 'update_container_modal.html' %}
+
+{% endblock %}

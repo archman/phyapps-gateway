@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{{ title }}</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap-4.3.1/css/bootstrap.min.css') }}">
+        <script src="{{ url_for('static', filename='bootstrap-4.3.1/js/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='bootstrap-4.3.1/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/logout.min.js') }}"></script>
+    </head>
+    </body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a href="https://frib.msu.edu/" target="_blank" class="navbar-brand">
+                <img src="{{ url_for('static', filename='img/frib-logo.png') }}" width="26" height="26" class="d-inline-block align-top" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-target="#navbarNav" data-toggle="collapse" aria-expanded="false" aria-label="Toggle Navigation">
+                <span class="navbar-toggle-icon"></span>
+            </button>
+
+            <div id="navbarNav" class="collapse navbar-collapse">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="{{ url_for('index') }}">Home<span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="{{ url_for('users') }}">Activity</a>
+                    {% if session['logged_in_admin'] %}
+                    <a class="nav-item nav-link" href="{{ url_for('u_admin') }}">Admin</a>
+                    {% endif %}
+                </div>
+                <div class="navbar-nav ml-auto">
+                    {% if session['logged_in'] %}
+                    <a class="nav-item nav-link" href="{{ url_for('user', name=session['logged_in_user']) }}"><span class="badge badge-info">{{ session['logged_in_user'] }}</span></a>
+                    <a class="nav-item nav-link nav-logout" href='#' data-url="{{ url_for('u_login') }}">Logout</a>
+                    {% elif session['logged_in_admin'] %}
+                    <a class="nav-item nav-link" href="{{ url_for('u_admin') }}"><span class="badge badge-danger">{{ session['logged_in_admin'] }}</span></a>
+                    <a class="nav-item nav-link nav-logout" href='#' data-url="{{ url_for('u_login') }}">Logout</a>
+                    {% else %}
+                    <a class="nav-item nav-link" href="{{ url_for('u_login') }}">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        {% block container %}{% endblock %}
+        <footer>
+        <div class="bg-dark fixed-bottom text-center text-white-50">
+            <div class="container">
+                <small>2019 Copyright &copy; Facility for Rare Isotope Beams, Michigan State University.</small>
+            </div>
+        </div>
+        </footer>
+    </body>
+</html>

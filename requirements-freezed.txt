@@ -1,0 +1,13 @@
+Flask==1.1.1
+Flask-RESTful==0.3.7
+Flask-HTTPAuth==3.3.0
+Flask-Migrate==2.5.2
+Flask-SQLAlchemy==2.4.0
+tzlocal==1.5.1
+yapf==0.27.0
+PyMySQL==0.9.3
+docker==4.0.2
+passlib==1.7.1
+python-dateutil==2.8.0
+pytz==2019.1
+requests==2.22.0

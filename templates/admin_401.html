@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block container %}
+
+<div style="margin:20px;">
+    <div class="error-template">
+        <p class="text text-danger">
+        401 Unauthorized Access</p>
+        <a href="{{ url_for('users') }}" class="btn btn-primary">Back Home</a>
+    </div>
+</div>
+
+{% endblock %}

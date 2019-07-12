@@ -1,0 +1,60 @@
+<div id="update-container-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Container Configuration</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="uname" class="control-label">Username</label>
+                        <input type="text" class="form-control" id="uname" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="cname" class="control-label">Container Name</label>
+                        <input type="text" class="form-control" id="cname" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="cid" class="control-label">Container ID</label>
+                        <input type="text" class="form-control" id="cid" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="notebook_url" class="control-label">Notebook URL</label>
+                        <input type="text" class="form-control" id="notebook_url" readonly>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label">Data Path</label>
+                        <input type="text" id="filepath" class="form-control">
+                    </div>
+
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <!-- iff user does not have any container linked -->
+                <select name="clist" class="form-control" title="Service" id="clist">
+                    <option value="phyapps:1.7-ss" select="selected">phyapps-1.7-ss</option>
+                    <option value="phyapps:1.7">phyapps-1.7</option>
+                    <option value="phyapps:1.6-ss">phyapps-1.6-ss</option>
+                    <option value="phyapps:1.6">phyapps-1.6</option>
+                    <option value="notebook">notebook</option>
+                </select>
+                <select name="sections" class="form-control" title="Section" id="csect">
+                    <option value="LEBT" select="selected">LEBT</option>
+                    <option value="MEBT">MEBT</option>
+                    <option value="LS1">LS1</option>
+                </select>
+                <button type="button" class="btn btn-info btn-start-service" data-url="{{ url_for('container', name='#') }}">Start</button>
+                <!-- end iff -->
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary submit-update-container">Update</button>
+            </div>
+        </div>
+    </div>
+</div> <!-- update-container-modal -->

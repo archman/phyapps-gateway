@@ -1,0 +1,5 @@
+restore db:
+
+db2table <old_db> <.json>
+
+make restore_db

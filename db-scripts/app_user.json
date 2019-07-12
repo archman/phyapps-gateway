@@ -1,0 +1,50 @@
+[
+  {
+    "admin_id": 1, 
+    "description": "I'm the first user", 
+    "id": 1, 
+    "name": "user1", 
+    "password_hash": "$6$rounds=656000$sADvFzasi4JFiVcf$R1WF6HEi4aKxnVFP1bDhSyFcCHPD0APGFIO/3wJRpSR7BZXEWom9F9aS/J9YlGb51zbolDZXK8/NIde55TAbT.", 
+    "timestamp": "2017-11-28 15:26:05.633647"
+  }, 
+  {
+    "admin_id": 1, 
+    "description": "Another user", 
+    "id": 2, 
+    "name": "user2", 
+    "password_hash": "$6$rounds=656000$SlkqnLPv2M1dvLpC$kE9Sm7wQ6iphPoW4aLDuaxx4ZUoGENJYmA3ws/9hwCg/rN6XxUMbr6zHukzkCDPtZAY5btUXEH/jC63IdAGKX.", 
+    "timestamp": "2017-11-28 18:57:08.673049"
+  }, 
+  {
+    "admin_id": 1, 
+    "description": "Another user", 
+    "id": 3, 
+    "name": "user3", 
+    "password_hash": "$6$rounds=656000$7kb8laXAX3q6szpM$YihcUtpvQV.Agi3WGToDoVIINXCDeBJjM9Z/.dyk66qBc4qIvnrNsYo7F5QV0RFem/Ptijko7891zlE7WKrHm0", 
+    "timestamp": "2017-11-28 18:59:19.781644"
+  }, 
+  {
+    "admin_id": 1, 
+    "description": "Another user", 
+    "id": 4, 
+    "name": "user4", 
+    "password_hash": "$6$rounds=656000$4hmymo1EsqEt6HnP$CcSsH9x839cbDXQ/aDnWPdL7PHn6SKn6kRXaz9Vp/mGYoVzOYdd8XWWqNyfZwEbHB/eXr0sh0kO72bB8srkR51", 
+    "timestamp": "2017-11-28 19:01:02.819949"
+  }, 
+  {
+    "admin_id": 1, 
+    "description": "Another user", 
+    "id": 5, 
+    "name": "user5", 
+    "password_hash": "$6$rounds=656000$mTu9P2Ghceb1cZhJ$NFLileKiZnExfTewSXLsh60clJ.vLYk6uZIscwfJTo0pNdKfouRjXhORExCNfszelEoPq3R7L6T8ruq8uf30C/", 
+    "timestamp": "2017-11-28 19:02:22.525392"
+  }, 
+  {
+    "admin_id": 1, 
+    "description": "TBA", 
+    "id": 6, 
+    "name": "yoshimot", 
+    "password_hash": "$6$rounds=656000$5/IlSQzMLlrJXuZj$htKaSdTBenavITzjipVazbVWSe11ohVNTVtScxXRr2QvmEjAsTvNQzDCb.KezHSbYnnSvJm1e.QhOCSpjA/Md/", 
+    "timestamp": "2017-11-30 23:43:57.221171"
+  }
+]

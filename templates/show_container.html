@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% set title = 'Container Administration' %}
+{% block container %}
+
+<script src="{{ url_for('static', filename='js/container.min.js') }}"></script>
+
+<div class="container my-3">
+    <h3 class="my-3">Service Name: <tt style="color:blue">{{ container.name }}</tt></h3>
+    <div class="card mt-2">
+        <div class="card-header">Status<span>
+                {% if container.status == 'running' %}
+                <p class="text-success text-uppercase float-right">{{ container.status }}</p>
+                {% elif container.status == 'paused' %}
+                <p class="text-warning text-uppercase float-right">{{ container.status }}</p>
+                {% elif container.status == 'exited' %}
+                <p class="text-danger text-uppercase float-right"> {{ container.status }}</p>
+                {% else %}
+                <p class="text-info text-uppercase float-right"> {{ container.status }}</p>
+                {% endif %}
+                </span>
+        </div>
+        {% if session['logged_in_user'] == container.owner or session['logged_in_admin'] %}
+        <div class="card-body">
+            <button class="btn btn-danger btn-container-ctrl"  data-url="{{ url_for('container', name=container.name) }}" data-value="stop"   data-status='enabled'>Stop  </button>
+            <button class="btn btn-success btn-container-ctrl" data-url="{{ url_for('container', name=container.name) }}" data-value="start"  data-status='enabled'>Start </button>
+            <button class="btn btn-warning btn-container-ctrl" data-url="{{ url_for('container', name=container.name) }}" data-value="pause"  data-status='enabled'>Pause </button>
+            <button class="btn btn-info btn-container-ctrl"    data-url="{{ url_for('container', name=container.name) }}" data-value="resume" data-status='enabled'>Resume</button>
+        </div>
+        {% else %}
+        <div class="card-body">
+            <button class="btn btn-danger disabled btn-container-ctrl"  data-url="{{ url_for('container', name=container.name) }}" data-value="stop"   data-status='disabled'>Stop  </button>
+            <button class="btn btn-success disabled btn-container-ctrl" data-url="{{ url_for('container', name=container.name) }}" data-value="start"  data-status='disabled'>Start </button>
+            <button class="btn btn-warning disabled btn-container-ctrl" data-url="{{ url_for('container', name=container.name) }}" data-value="pause"  data-status='disabled'>Pause </button>
+            <button class="btn btn-info disabled btn-container-ctrl"    data-url="{{ url_for('container', name=container.name) }}" data-value="resume" data-status='disabled'>Resume</button>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="card mt-2">
+        <div class="card-header">Owner</div>
+        <div class="card-body">
+            {% if session['logged_in_user'] == container.owner %}
+            <p class="text-info"><a href="{{ url_for('user', name=container.owner) }}">{{ container.owner }}</a></p>
+            {% else %}
+            <p class="text-info">{{ container.owner }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card mt-2">
+        <div class="card-header">Image</div>
+        <div class="card-body">
+            <p class="text-default">{{ container.image }}</p>
+        </div>
+    </div>
+
+    <div class="card mt-2">
+        <div class="card-header">ID</div>
+        <div class="card-body">
+            <p class="text-defalut">{{ container.longid }}</p>
+        </div>
+    </div>
+
+    <div class="card mt-2">
+        <div class="card-header">Uptime</div>
+        <div class="card-body">
+            <p class="text-default">{{ container.uptime }}</p>
+        </div>
+    </div>
+
+    <div class="card mt-2">
+        <div class="card-header">Ports</div>
+        <div class="card-body">
+            <p class="text-default">{{ container.ports }}</p>
+        </div>
+    </div>
+
+    {% if container.notebook_url != 'Unknown' %}
+    <div class="card mt-2">
+        <div class="card-header">Notebook URL (Local)</div>
+        <div class="card-body">
+            <p class="text-default"><a href="{{ container.notebook_url }}">{{ container.notebook_url }}</a></p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if container.mach != 'Unknown' %}
+    <div class="card mt-2">
+        <div class="card-header">Machine</div>
+        <div class="card-body">
+            <p class="text text-danger">{{ container.mach }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

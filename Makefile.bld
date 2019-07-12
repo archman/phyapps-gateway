@@ -1,0 +1,34 @@
+# Makefile: build docker image
+# !!test w/ proxy to jupyter-notebook
+# make -f Makefile.bld test (^test^stop to stop)
+# !!build:
+# make -f Makefile.bld build (^build^push to push to cloud)
+
+PKGNAME := tonyzhang/phyapps-gateway:latest
+
+pack:
+	tar cjv --exclude='*.pyc' --exclude='*.swp' --exclude="__pycache__" \
+		-f phycloud.tar.bz2 app templates \
+		static/bootstrap-4.3.1/css/bootstrap.min.css \
+		static/bootstrap-4.3.1/js/bootstrap.bundle.min.js \
+		static/bootstrap-4.3.1/js/jquery-3.3.1.min.js \
+		static/img \
+		static/js/*.min.js \
+		config.py run.py
+
+build:
+	docker build --no-cache -t $(PKGNAME) .
+
+push:
+	docker tag $(PKGNAME) $(PKGNAME)
+	docker push $(PKGNAME)
+
+test:
+	# docker exec -it gw-test sh
+	docker run -t -d -p 5050:5050 --net=host --name gw-test \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		$(PKGNAME)
+
+stop:
+	docker container stop gw-test
+	docker container rm gw-test
