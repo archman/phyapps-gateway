@@ -12,18 +12,16 @@ client = docker.from_env()
 
 # container image names mapping:
 cname_map = {
-        'phyapps:1.7-ss': 'tonyzhang/phyapps:release-1.7-ss',
-        'phyapps:1.7': 'tonyzhang/phyapps:release-1.7',
-        'phyapps:1.6-ss': 'tonyzhang/phyapps:release-1.6-ss',
-        'phyapps:1.6': 'tonyzhang/phyapps:release-1.6',
-        'notebook': 'tonyzhang/notebook:latest',
+        'phyapps:va': 'tonyzhang/phyapps:va',
+        'phyapps:nb': 'tonyzhang/phyapps:nb',
 }
 
 # accelerator section names mapping:
-mach_map = {
-        'LEBT': 'FRIB_LEBT',
-        'MEBT': 'FRIB_MEBT',
-        'LS1': 'FRIB_LINAC',
+VA_MACH = "FRIB_VA"
+subm_map = {
+        'LEBT': 'LEBT',
+        'MEBT': 'MEBT',
+        'LINAC': 'LS1FS1',
 }
 
 # initla port number:
@@ -202,8 +200,8 @@ def _create_new_container(image, mach, uname, dpath, token, **kws):
     global NB_PORT, SS_PORT
     image_name = cname_map[image]
     if mach is not None and mach != '':
-        # --mach parameter
-        command = ['--mach', mach_map[mach]]
+        # --subm parameter
+        command = ['--mach', VA_MACH, '--subm', subm_map[mach]]
     elif mach == '':
         command = []
 
