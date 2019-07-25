@@ -3,6 +3,8 @@
 # make -f Makefile.bld test (^test^stop to stop)
 # !!build:
 # make -f Makefile.bld build (^build^push to push to cloud)
+# all-in-one:
+# make -f Makefile.bld pack build push
 
 PKGNAME := tonyzhang/phyapps-gateway:latest
 
@@ -14,7 +16,7 @@ pack:
 		static/bootstrap-4.3.1/js/jquery-3.3.1.min.js \
 		static/img \
 		static/js/*.min.js \
-		config.py run.py
+		config.py application.py
 
 build:
 	docker build --no-cache -t $(PKGNAME) .

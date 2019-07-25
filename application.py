@@ -8,4 +8,5 @@ if __name__ == '__main__':
     #                threaded=True,)
     #print(application.view_functions)
     #print(application.url_map)
-    application.run(host="0.0.0.0")
+    application.run(host="0.0.0.0",
+                    port=5050)
