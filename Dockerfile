@@ -7,7 +7,8 @@ ADD requirements-freezed.txt .
 RUN apk add --no-cache py3-cffi py3-openssl
 
 RUN mkdir notebooks && \
-    pip install --no-cache-dir -r requirements-freezed.txt
+    pip install --no-cache-dir -r requirements-freezed.txt && \
+    rm requirements-freezed.txt
 
 ADD phycloud.tar.bz2 .
 
