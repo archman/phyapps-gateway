@@ -10,7 +10,7 @@ PKGNAME := tonyzhang/phyapps-gateway:latest
 
 pack:
 	tar cjv --exclude='*.pyc' --exclude='*.swp' --exclude="__pycache__" \
-		-f phycloud.tar.bz2 app templates \
+		-f phycloud.tar.bz2 app mgmt templates \
 		static/bootstrap-4.3.1/css/bootstrap.min.css \
 		static/bootstrap-4.3.1/js/bootstrap.bundle.min.js \
 		static/bootstrap-4.3.1/js/jquery-3.3.1.min.js \

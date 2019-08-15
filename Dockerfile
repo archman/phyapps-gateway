@@ -11,6 +11,8 @@ RUN mkdir notebooks && \
     rm requirements-freezed.txt
 
 ADD phycloud.tar.bz2 .
+ADD mgmt /usr/local/bin
+ENV FLASK_APP "/phyapps/application.py"
 
 EXPOSE 5050
 
