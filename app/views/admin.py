@@ -23,6 +23,8 @@ class UserAdminAPI(Resource):
         self.rp = reqparse.RequestParser()
         self.rp.add_argument('nickname', type=str, required=True)
         self.rp.add_argument('password', type=str, location='json')
+        self.rp.add_argument('current_password', type=str, location='json')
+        self.rp.add_argument('new_password', type=str, location='json')
         self.rp.add_argument('email', type=str, location='json', default="not available")
         super(UserAdminAPI, self).__init__()
 
@@ -43,23 +45,40 @@ class UserAdminAPI(Resource):
 
     def put(self):
         p = self.rp.parse_args()
+
         nickname = p.get('nickname')
-        password = p.get('password')
+        current_password = p.get('current_password')
+        new_password = p.get('new_password')
         email = p.get('email')
 
         if nickname in [None, '']:
             abort(400)
 
+        if current_password in [None, '']:
+            abort(400)
+
         admin = Admin.query.filter(Admin.nickname==nickname).first()
 
-        if password not in [None, '']:
-            admin.hash_password(password)
+        if admin is None:
+            abort(400)
+
+        if not admin.verify_password(current_password):
+            abort(400)
+
+        if new_password not in [None, '']:
+            admin.hash_password(new_password)
         if email not in [None, '']:
             admin.email = email
         db.session.commit()
         return {'Updated admin account': nickname}, 200
 
     def post(self):
+        try:
+            assert len(Admin.query.all()) == 0
+        except AssertionError:
+            # only one admin account is allowed.
+            abort(400)
+
         admin = self.rp.parse_args()
         nickname = admin.get('nickname')
         password = admin.get('password')
