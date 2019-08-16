@@ -6,6 +6,7 @@ import pytz
 import tzlocal
 from flask import request
 from yapf.yapflib.yapf_api import FormatCode
+from subprocess import Popen
 
 import docker
 client = docker.from_env()
@@ -15,6 +16,8 @@ cname_map = {
         'phyapps:va': 'tonyzhang/phyapps:va',
         'phyapps:nb': 'tonyzhang/phyapps:nb',
 }
+
+CURDIR = os.path.abspath(os.path.dirname(__file__))
 
 # accelerator section names mapping:
 VA_MACH = "FRIB_VA"
@@ -235,3 +238,13 @@ def _create_new_container(image, mach, uname, dpath, token, **kws):
     nb_url = "http://127.0.0.1:{}".format(NB_PORT)
     ss_url = "http://127.0.0.1:{}".format(SS_PORT)
     return c.id, c.name, nb_url, ss_url
+
+
+def init_db():
+    """Initialize database.
+    """
+    fn = os.path.abspath(
+            os.path.join(CURDIR, '..', 'mgmt', 'initialize_database.sh'))
+    cmd = '{}'.format(fn)
+    p = Popen(cmd.split(), shell=True)
+    p.wait()
