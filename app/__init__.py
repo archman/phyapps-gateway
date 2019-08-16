@@ -4,6 +4,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from .utils import init_db
 
 import os
 
@@ -45,6 +46,20 @@ def proxy_nb(name):
     return Response(
             render_template('nb_404.html'),
             mimetype="text/html")
+
+
+@app.route('/init')
+def init():
+    return Response(
+            render_template('init.html',
+                            title="Phyapps Cloud - Initialization"),
+            mimetype="text/html")
+
+
+@app.route('/db_init', methods=['POST'])
+def db_init():
+    init_db()
+    return {'is_db_init': True}, 200
 
 
 api.add_resource(UserAPI, '/users/<string:name>',
