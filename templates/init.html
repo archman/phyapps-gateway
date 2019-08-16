@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block container %}
+
+<script src="{{ url_for('static', filename='js/init.min.js') }}"></script>
+
+<div class="mt-3 col-sm-10 offset-sm-1 col-xs-6 offset-xs-3">
+    <div class="card border-info">
+        <div class="card-header">
+            <h3>Initialize Database<h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <label class="label label-warning form-control" readonly>
+                        <h5>Database can only be initialized when phyapps-gateway is started for the first time.</h5>
+                    </label>
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-outline-info btn-init-db"
+                            data-url="{{ url_for('db_init') }}"
+                            data-surl="{{ url_for('index') }}">Initialize
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-info">
+        <div class="card-header">
+            <h3>Initialize Adminstrator Account<h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" id="inputAdminname" placeholder="Admin Login Name"
+                           autocomplete=off autofocus>
+                </div>
+                <div class="col">
+                    <input type="password" class="form-control" id="inputAdminpass" placeholder="Admin Login Password">
+                </div>
+                <div class="col">
+                    <input type="password" class="form-control" id="verifyAdminpass" placeholder="Verify Password">
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-outline-info btn-init-admin"
+                            data-url="{{ url_for('u_admin') }}"
+                            data-surl="{{ url_for('u_login') }}">Initialize
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3 card border-danger">
+        <div class="card-header">
+            <h3>Update Password of Administrator Account</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" id="verifyAdminname" placeholder="Verify Admin Login Name" autocomplete=off autofocus>
+                </div>
+                <div class="col">
+                    <input type="password" class="form-control" id="verifyCurrentAdminpass" placeholder="Verify Admin Login Password">
+                </div>
+                <div class="col">
+                    <input type="password" class="form-control" id="inputNewAdminpass" placeholder="New Admin Login Password">
+                </div>
+                <div class="col">
+                    <input type="password" class="form-control" id="verifyNewAdminpass" placeholder="Verify New Password">
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-outline-danger btn-update-admin-password"
+                            data-url="{{ url_for('u_admin') }}"
+                            data-surl="{{ url_for('u_login') }}">Update
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
